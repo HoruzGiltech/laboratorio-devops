@@ -1,4 +1,5 @@
 import os
+import time
 from flask import Flask, jsonify
 
 app = Flask(__name__)
@@ -12,6 +13,15 @@ def home():
         "status": "ok",
         "message": "¡Hola desde Kubernetes con CI/CD automatico en GCP! 🚀",
         "version": "2.0.0"
+    })
+
+@app.rout ('/freeze')
+def freeze():
+    global is_healthy
+    is_healthy = False
+    return jsonify({
+        "status": "frozen",
+        "message": "La aplicacion ha entrado en un estado de bloqueo interno... ❄️"
     })
 
 @app.route('/crash')

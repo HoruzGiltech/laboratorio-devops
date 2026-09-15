@@ -22,5 +22,20 @@ spec:
               memory: "64Mi"
               cpu: "100m"
             limits:
-              memory: "100Mi" # ⚠️ Si el contenedor supera los 100 Megabytes, será destruido
+              memory: "100Mi"
               cpu: "250m"
+          # 🩺 Configuración de Sondas de Salud
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 5 # Espera 5s tras encender antes de hacer la primera prueba
+            periodSeconds: 5 # Consulta cada 5 segundos
+            failureThreshold: 3 # Si falla 3 veces seguidas (15s), REINICIA el Pod
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 5
+            failureThreshold: 1 # Si falla 1 vez, deja de enviarle tráfico
