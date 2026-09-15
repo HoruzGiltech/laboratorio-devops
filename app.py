@@ -15,7 +15,7 @@ def home():
         "version": "2.0.0"
     })
 
-@app.rout ('/freeze')
+@app.route ('/freeze')
 def freeze():
     global is_healthy
     is_healthy = False
