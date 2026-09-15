@@ -1,4 +1,4 @@
-import sys
+import os
 from flask import Flask, jsonify
 
 app = Flask(__name__)
@@ -13,7 +13,7 @@ def home():
 
 @app.route('/crash')
 def crash():
-    sys.exit(1)
+    os._exit(1)
 
 
 if __name__ == '__main__':
