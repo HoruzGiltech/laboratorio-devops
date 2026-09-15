@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mi-app-deployment
-  labels:
-    app: mi-app
 spec:
   replicas: 1
   selector:
@@ -15,7 +13,14 @@ spec:
         app: mi-app
     spec:
       containers:
-      - name: mi-app
-        image: us-central1-docker.pkg.dev/project-0b0f7de9-7759-4533-81f/mi-repo-devops/mi-app-devops:v1
-        ports:
-        - containerPort: 8080
+        - name: mi-app
+          image: us-central1-docker.pkg.dev/project-0b0f7de9-7759-4533-81f/mi-repo-devops/mi-app-devops:latest
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "100m"
+            limits:
+              memory: "100Mi" # ⚠️ Si el contenedor supera los 100 Megabytes, será destruido
+              cpu: "250m"
