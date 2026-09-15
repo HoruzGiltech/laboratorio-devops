@@ -6,6 +6,7 @@ app = Flask(__name__)
 
 # Lista global para retener la memoria y evitar que el garbage collector la libere
 memory_hog = []
+is_healthy = True
 
 @app.route('/')
 def home():
@@ -14,6 +15,20 @@ def home():
         "message": "¡Hola desde Kubernetes con CI/CD automatico en GCP! 🚀",
         "version": "2.0.0"
     })
+
+@app.route('/healthz')
+def healthz():
+    if is_healthy:
+        return jsonify({
+            "status": "healthy",
+            "message": "La aplicacion esta funcionando correctamente... ✅"
+        }), 200
+    else:
+        return jsonify({
+            "status": "unhealthy",
+            "message": "La aplicacion ha entrado en un estado de bloqueo interno... ❄️"
+        }), 500
+
 
 @app.route ('/freeze')
 def freeze():
