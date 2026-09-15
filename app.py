@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+Ofrom flask import Flask, jsonify
 
 app = Flask(__name__)
 
@@ -6,8 +6,8 @@ app = Flask(__name__)
 def home():
     return jsonify({
         "status": "ok",
-        "message": "¡Hola desde mi laboratorio DevOps en GCP! 🚀",
-        "version": "1.0.0"
+        "message": "¡Hola desde Kubernetes con CI/CD automatico en GCP! 🚀",
+        "version": "2.0.0"
     })
 
 if __name__ == '__main__':
