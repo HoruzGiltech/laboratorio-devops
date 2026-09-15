@@ -6,7 +6,7 @@ app = Flask(__name__)
 def home():
     return jsonify({
         "status": "ok",
-        "message": "¡Hola desde Kubernetes con CI/CD automatico en GCP! 🚀"",
+        "message": "¡Hola desde Kubernetes con CI/CD automatico en GCP! 🚀",
         "version": "2.0.0"
     })
 
