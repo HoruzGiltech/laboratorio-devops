@@ -12,30 +12,42 @@ spec:
       labels:
         app: mi-app
     spec:
+  replicas: 1
+  # 🔄 Cambiamos la estrategia para liberar recursos antes de crear el nuevo Pod
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: mi-app
+  template:
+    metadata:
+      labels:
+        app: mi-app
+    spec:
       containers:
-        - name: mi-app
-          image: us-central1-docker.pkg.dev/project-0b0f7de9-7759-4533-81f/mi-repo-devops/mi-app-devops:latest
-          ports:
-            - containerPort: 8080
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "100m"
-            limits:
-              memory: "100Mi"
-              cpu: "250m"
-          # 🩺 Configuración de Sondas de Salud
-          livenessProbe:
-            httpGet:
-              path: /healthz
-              port: 8080
-            initialDelaySeconds: 5 # Espera 5s tras encender antes de hacer la primera prueba
-            periodSeconds: 5 # Consulta cada 5 segundos
-            failureThreshold: 3 # Si falla 3 veces seguidas (15s), REINICIA el Pod
-          readinessProbe:
-            httpGet:
-              path: /healthz
-              port: 8080
-            initialDelaySeconds: 3
-            periodSeconds: 5
-            failureThreshold: 1 # Si falla 1 vez, deja de enviarle tráfico
+      - name: mi-app
+        image: us-central1-docker.pkg.dev/project-0b0f7de9-7759-4533-81f/mi-repo-devops/mi-app-devops:latest
+        ports:
+        - containerPort: 8080
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "100m"
+          limits:
+            memory: "100Mi"
+            cpu: "250m"
+        # 🩺 Sondas de Salud
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 5
+          failureThreshold: 1
