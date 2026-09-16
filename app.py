@@ -12,8 +12,8 @@ is_healthy = True
 def home():
     return jsonify({
         "status": "ok",
-        "message": "¡Hola desde Kubernetes con CI/CD automatico en GCP! 🚀",
-        "version": "2.0.0"
+        "message": "¡Hola desde Kubernetes con CI/CD automatico en GCP! con nuevas funcionalidades 🚀",
+        "version": "3.0.0"
     })
 
 @app.route('/healthz')
